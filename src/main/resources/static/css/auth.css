@@ -59,18 +59,37 @@ body {
     font-size: 0.875rem;
 }
 
-@media (max-width: 768px) {
-    .left-section {
-        display: none;
-    }
+.app-title {
+    font-size: 1.2rem; /* default for desktop */
+}
 
+/* Hide image in mobile, stack layout vertically */
+@media (max-width: 768px) {
     .auth-container {
-        height: auto;
         flex-direction: column;
+        height: auto;
         margin: 20px;
     }
 
-    .right-section {
+    .left-section {
+        flex: none;
+        width: 100%;
         padding: 20px;
+        text-align: center;
+    }
+
+    .left-section img {
+        display: none;
+    }
+
+    .right-section {
+        flex: none;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .app-title {
+        font-size: 1.6rem;
+        line-height: 1.5;
     }
 }
