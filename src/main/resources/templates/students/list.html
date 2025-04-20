@@ -23,7 +23,6 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Image</th>
       <th>Name</th>
       <th>Major</th>
       <th>Year</th>
@@ -32,7 +31,6 @@
     </thead>
     <tbody>
     <tr th:each="student : ${students.content}">
-      <td><img th:src="@{${student.imagePath}}" alt="Image" width="50" height="50"/></td>
       <td th:text="${student.firstName + ' ' + student.lastName}"></td>
       <td th:text="${student.major.displayName}"></td>
       <td th:text="${student.yearOfStudy}"></td>
