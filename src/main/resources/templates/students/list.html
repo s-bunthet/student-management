@@ -8,7 +8,7 @@
 <div class="container mt-5">
   <h2>Student List</h2>
 
-  <form class="row g-3 mb-3" method="get" th:action="@{/templates/students/students}">
+  <form class="row g-3 mb-3" method="get" th:action="@{/students}">
     <div class="col-auto">
       <input type="text" class="form-control" name="keyword" placeholder="Search by name" th:value="${keyword}">
     </div>
@@ -23,14 +23,36 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Major</th>
-      <th>Year</th>
+      <th>
+        <a th:href="@{ /students(sortField='id', sortDir=${sortField == 'id' and sortDir == 'asc' ? 'desc' : 'asc'}) }">
+          Id
+          <span th:if="${sortField == 'id'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+        </a>
+      </th>
+      <th>
+        <a th:href="@{ /students(sortField='firstName', sortDir=${sortField == 'firstName' and sortDir == 'asc' ? 'desc' : 'asc'}) }">
+          Name
+          <span th:if="${sortField == 'firstName'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+        </a>
+      </th>
+      <th>
+        <a th:href="@{ /students(sortField='major', sortDir=${sortField == 'major' and sortDir == 'asc' ? 'desc' : 'asc'}) }">
+          Major
+          <span th:if="${sortField == 'major'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+        </a>
+      </th>
+      <th>
+        <a th:href="@{ /students(sortField='yearOfStudy', sortDir=${sortField == 'yearOfStudy' and sortDir == 'asc' ? 'desc' : 'asc'}) }">
+          Year
+          <span th:if="${sortField == 'yearOfStudy'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+        </a>
+      </th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="student : ${students.content}">
+      <td th:text="${student.id}"></td>
       <td th:text="${student.firstName + ' ' + student.lastName}"></td>
       <td th:text="${student.major.displayName}"></td>
       <td th:text="${student.yearOfStudy}"></td>
@@ -47,14 +69,14 @@
   <nav>
     <ul class="pagination">
       <li class="page-item" th:classappend="${students.first} ? 'disabled'">
-        <a class="page-link" th:href="@{|/templates/students/students?page=${students.number - 1}&keyword=${keyword}|}">Previous</a>
+        <a class="page-link" th:href="@{|/students?page=${students.number - 1}&keyword=${keyword}|}">Previous</a>
       </li>
       <li class="page-item" th:each="i : ${#numbers.sequence(0, students.totalPages - 1)}"
           th:classappend="${students.number == i} ? 'active'">
-        <a class="page-link" th:href="@{|/templates/students/students?page=${i}&keyword=${keyword}|}" th:text="${i + 1}"></a>
+        <a class="page-link" th:href="@{|/students?page=${i}&keyword=${keyword}|}" th:text="${i + 1}"></a>
       </li>
       <li class="page-item" th:classappend="${students.last} ? 'disabled'">
-        <a class="page-link" th:href="@{|/templates/students/students?page=${students.number + 1}&keyword=${keyword}|}">Next</a>
+        <a class="page-link" th:href="@{|/students?page=${students.number + 1}&keyword=${keyword}|}">Next</a>
       </li>
     </ul>
   </nav>

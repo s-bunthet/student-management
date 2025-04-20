@@ -3,7 +3,9 @@ package com.project.spring.service;
 import com.project.spring.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StudentService {
@@ -12,4 +14,5 @@ public interface StudentService {
     Optional<Student> getStudentById(Long id);
     void deleteStudent(Long id);
     Page<Student> getAllStudents(String keyword, Pageable pageable);
+//    List<Student> getAllStudentsSorted(Sort sort);
 }

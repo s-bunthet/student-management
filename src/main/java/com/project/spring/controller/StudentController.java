@@ -7,6 +7,8 @@ import com.project.spring.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -31,13 +35,25 @@ public class StudentController {
 
         // List all students with pagination and optional search keyword
         @GetMapping
-        public String listStudents(Model model,
-                                   @RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "") String keyword) {
-            Page<Student> students = studentService.getAllStudents(keyword, PageRequest.of(page, 5));
-            model.addAttribute("students", students);
-            model.addAttribute("currentPage", page);
+        public String listStudents(
+                @RequestParam(defaultValue = "") String keyword,
+                @RequestParam(defaultValue = "0") int page,
+                @RequestParam(defaultValue = "5") int size,
+                @RequestParam(defaultValue = "firstName") String sortField,
+                @RequestParam(defaultValue = "asc") String sortDir,
+                Model model) {
+
+            Sort sort = sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+            Pageable pageable = PageRequest.of(page, size, sort);
+
+            Page<Student> studentPage = studentService.getAllStudents(keyword, pageable);
+
+            model.addAttribute("students", studentPage);
             model.addAttribute("keyword", keyword);
+            model.addAttribute("sortField", sortField);
+            model.addAttribute("sortDir", sortDir);
+            model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
             return "students/list";
         }
 
@@ -56,7 +72,7 @@ public class StudentController {
                                     @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
             if (!imageFile.isEmpty()) {
-                String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
+                String fileName = UUID.randomUUID().toString() + "." + StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
                 Path uploadPath = Paths.get(UPLOAD_DIR);
 
                 if (!Files.exists(uploadPath)) {
