@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="s-bunthet">
+        <insert tableName="app_users">
+            <column name="id" value="1"/>
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$KMPKc1l7t5QJbmnRIjQbg.dikdvSjUjIIHipdgWaKlIveCM9i4dSy"/>
+            <column name="email" value="admin@example.com"/>
+            <column name="enabled" value="true"/>
+        </insert>
+    </changeSet>
+    <changeSet id="2" author="s-bunthet">
+        <insert tableName="students">
+            <column name="id" value="1"/>
+            <column name="first_name" value="Christ"/>
+            <column name="last_name" value="Evan"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="2"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="2"/>
+            <column name="first_name" value="Tom"/>
+            <column name="last_name" value="Cruise"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="3"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="3"/>
+            <column name="first_name" value="Tom"/>
+            <column name="last_name" value="Hanks"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="4"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="4"/>
+            <column name="first_name" value="Will"/>
+            <column name="last_name" value="Smith"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="1"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="5"/>
+            <column name="first_name" value="Johnny"/>
+            <column name="last_name" value="Depp"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="2"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="6"/>
+            <column name="first_name" value="Brad"/>
+            <column name="last_name" value="Pitt"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="CYBERSECURITY"/>
+            <column name="year_of_study" value="2"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="7"/>
+            <column name="first_name" value="Leonardo"/>
+            <column name="last_name" value="DiCaprio"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="1"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="8"/>
+            <column name="first_name" value="Angelia"/>
+            <column name="last_name" value="Jolie"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="CYBERSECURITY"/>
+            <column name="year_of_study" value="2"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="9"/>
+            <column name="first_name" value="Jackie"/>
+            <column name="last_name" value="Chan"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="ARTIFICIAL_INTELLIGENCE"/>
+            <column name="year_of_study" value="2"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+        <insert tableName="students">
+            <column name="id" value="10"/>
+            <column name="first_name" value="Bruce"/>
+            <column name="last_name" value="Lee"/>
+            <column name="date_of_birth" value="2000-01-01"/>
+            <column name="major" value="SOFTWARE_ENGINEERING"/>
+            <column name="year_of_study" value="3"/>
+            <column name="image_path" value="/uploads/64b3afef-a62d-499f-ab32-21ad3e96502f.png"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

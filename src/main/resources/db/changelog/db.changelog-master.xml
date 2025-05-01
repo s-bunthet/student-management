@@ -7,4 +7,5 @@
 
     <!-- Include individual changelog files -->
     <include file="db.changelog-1.0-initial-schema.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-1.1-initial-data.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

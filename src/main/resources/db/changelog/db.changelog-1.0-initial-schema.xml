@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1" author="s-bunthet">
-        <createTable tableName="users">
+        <createTable tableName="app_users">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -20,6 +20,28 @@
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="enabled" type="BOOLEAN" defaultValue="true"/>
+        </createTable>
+        <createTable tableName="students">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="major" type="VARCHAR(255)">
+                <constraints nullable="false" checkConstraint="major IN (ARTIFICIAL_INTELLIGENCE,CYBERSECURITY,SOFTWARE_ENGINEERING)"/>
+            </column>
+            <column name="year_of_study" type="int">
+                <constraints nullable="false" checkConstraint="year_of_study IN (1, 2, 3, 4)"/>
+            </column>
+            <column name="image_path" type="VARCHAR(255)"/>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>
