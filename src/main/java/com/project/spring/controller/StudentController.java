@@ -19,10 +19,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.UUID;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/students")
 @RequiredArgsConstructor
@@ -42,7 +43,7 @@ public class StudentController {
                 @RequestParam(defaultValue = "firstName") String sortField,
                 @RequestParam(defaultValue = "asc") String sortDir,
                 Model model) {
-
+            log.info("Listing students with keyword: {}, page: {}, size: {}, sortField: {}, sortDir: {}", keyword, page, size, sortField, sortDir);
             Sort sort = sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
             Pageable pageable = PageRequest.of(page, size, sort);
 
@@ -60,6 +61,7 @@ public class StudentController {
         // Show the student creation form
         @GetMapping("/create")
         public String showCreateForm(Model model) {
+            log.info("Creating a new student");
             model.addAttribute("student", new Student());
             model.addAttribute("majors", Major.values());
             model.addAttribute("years", new int[]{1, 2, 3, 4});
@@ -71,6 +73,7 @@ public class StudentController {
         public String createStudent(@ModelAttribute Student student,
                                     @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
+            log.info("Creating student: {}", student);
             if (!imageFile.isEmpty()) {
                 String fileName = UUID.randomUUID().toString() + "." + StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
                 Path uploadPath = Paths.get(UPLOAD_DIR);
@@ -91,6 +94,7 @@ public class StudentController {
         // Show update form
         @GetMapping("/edit/{id}")
         public String showEditForm(@PathVariable Long id, Model model) {
+            log.info("Editing student with ID: {}", id);
             Student student = studentService.getStudentById(id)
                     .orElseThrow(() -> new RuntimeException("Student not found"));
             model.addAttribute("student", student);
@@ -105,6 +109,7 @@ public class StudentController {
                                     @ModelAttribute Student student,
                                     @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
+            log.info("Updating student with ID: {}", id);
             if (!imageFile.isEmpty()) {
                 String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
                 Path uploadPath = Paths.get(UPLOAD_DIR);
@@ -123,6 +128,7 @@ public class StudentController {
         // Delete student
         @GetMapping("/delete/{id}")
         public String deleteStudent(@PathVariable Long id) {
+            log.info("Deleting student with ID: {}", id);
             studentService.deleteStudent(id);
             return "redirect:/students";
         }
