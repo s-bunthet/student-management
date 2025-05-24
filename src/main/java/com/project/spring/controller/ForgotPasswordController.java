@@ -1,5 +1,6 @@
 package com.project.spring.controller;
 
+import com.project.spring.model.RecaptchaResponse;
 import com.project.spring.model.User;
 import com.project.spring.service.EmailService;
 import com.project.spring.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -25,13 +27,38 @@ public class ForgotPasswordController {
     @Value("${spring.mail.fromResetPassword}")
     private String fromResetPassword;
 
+    @Value("${recaptcha.secret-key}")
+    private String recaptchaSecretKey;
+
+    @Value("${recaptcha.verify-url}")
+    private String recaptchaVerifyUrl;
+
+    @Value("${recaptcha.site-key}")
+    private String recaptchaSiteKey;
+
     @GetMapping("/forgot-password")
-    public String showForgotPasswordForm() {
+    public String showForgotPasswordForm(Model model) {
+        // Add the reCAPTCHA site key to the model for rendering in the view
+        model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
+        System.out.println(recaptchaSiteKey);
         return "auth/forgot-password";
     }
 
     @PostMapping("/forgot-password")
-    public String processForgotPassword(@RequestParam String email, Model model) {
+    public String processForgotPassword(@RequestParam String email,
+                                        @RequestParam("g-recaptcha-response") String recaptchaResponse,
+                                        Model model) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String params = "?secret=" + recaptchaSecretKey + "&response=" + recaptchaResponse;
+
+        RecaptchaResponse recaptchaResult = restTemplate.postForObject(recaptchaVerifyUrl + params, null, RecaptchaResponse.class);
+
+        if (recaptchaResult == null || !recaptchaResult.isSuccess()) {
+            model.addAttribute("message", "reCAPTCHA verification failed.");
+            return "auth/forgot-password";
+        }
+
         Optional<User> optionalUser = userService.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
