@@ -44,4 +44,15 @@
 
         </createTable>
     </changeSet>
+
+    <changeSet id="2" author="s-bunthet">
+        <addColumn tableName="app_users">
+            <column name="reset_token" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="s-bunthet">
+        <addColumn tableName="app_users">
+            <column name="reset_token_expiry" type="datetime"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

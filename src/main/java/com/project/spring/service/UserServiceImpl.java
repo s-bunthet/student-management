@@ -30,4 +30,26 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<User> findByResetToken(String token) {
+        return userRepository.findByResetToken(token);
+    }
+
+    @Override
+    public void updatePassword(User user, String password) {
+        user.setPassword(passwordEncoder.encode(password));
+        user.setResetToken(null); // Clear the reset token after password reset
+        userRepository.save(user);
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }
