@@ -18,6 +18,13 @@
     <!-- Right Section -->
     <div class="right-section">
         <div class="form-wrapper">
+            <div class="text-end mt-2">
+                <select class="form-select w-auto d-inline" style="border: none; color: blue;" onchange="location = this.value;">
+                    <option th:value="@{?lang=en}" th:text="#{English}" th:selected="${#locale.language == 'en'}">English</option>
+                    <option th:value="@{?lang=fr}" th:text="#{French}" th:selected="${#locale.language == 'fr'}">French</option>
+                    <option th:value="@{?lang=km}" th:text="#{ខ្មែរ}" th:selected="${#locale.language == 'km'}">ខ្មែរ</option>
+                </select>
+            </div>
             <h3 class="mb-4">Create an account</h3>
             <form th:action="@{/register}" method="post" th:object="${user}" onsubmit="return validateForm()">
                 <div class="mb-3">

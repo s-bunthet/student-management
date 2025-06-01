@@ -18,24 +18,31 @@
     <!-- Right Section -->
     <div class="right-section">
         <div class="form-wrapper">
-            <h3 class="mb-4">Login</h3>
-            <a href="/oauth2/authorization/google" class="btn btn-primary">Login with Google</a>
-            <form th:action="@{/login}" method="post">
+            <div class="text-end mt-2">
+                <select class="form-select w-auto d-inline" style="border: none; color: blue;" onchange="location = this.value;">
+                    <option th:value="@{?lang=en}" th:text="#{English}" th:selected="${#locale.language == 'en'}">English</option>
+                    <option th:value="@{?lang=fr}" th:text="#{French}" th:selected="${#locale.language == 'fr'}">French</option>
+                    <option th:value="@{?lang=km}" th:text="#{ខ្មែរ}" th:selected="${#locale.language == 'km'}">ខ្មែរ</option>
+                </select>
+            </div>
+            <h3 class="mb-4" th:text="#{login.title}">Login</h3>
+            <a href="/oauth2/authorization/google" th:text="#{login.login-with-google}" class="btn btn-primary">Login with Google</a>
+            <form th:action="@{/login}" method="post" class="mt-3">
                 <div class="mb-3">
-                    <label for="username">Username :</label>
+                    <label th:text="#{login.username}" for="username">Username :</label>
                     <input type="text" class="form-control" name="username" id="username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password">Password :</label>
+                    <label th:text="#{login.password}" for="password">Password :</label>
                     <input type="password" class="form-control" name="password" id="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Connect</button>
+                <button type="submit" th:text="#{login.button}" class="btn btn-primary w-100">Connect</button>
             </form>
             <div class="text-center mt-2">
-                <a href="/register">Create an account</a>
+                <a href="/register" th:text="#{login.create-account}">Create an account</a>
             </div>
             <div class="text-center mt-2">
-                <a href="/forgot-password">Forgot password?</a>
+                <a href="/forgot-password" th:text="#{login.forgot-password}">Forgot password?</a>
             </div>
         </div>
     </div>
